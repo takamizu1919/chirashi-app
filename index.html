@@ -2,84 +2,107 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>羽生チラシ</title>
 
 <style>
-*{box-sizing:border-box}
 body{
- margin:0;
- font-family:Arial,"Noto Sans JP",sans-serif;
- background:#f4f6f8;
- color:#222
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
 }
+
 header{
- background:#1976d2;
- color:white;
- text-align:center;
- padding:18px 10px
+  background:#1976d2;
+  color:white;
+  text-align:center;
+  padding:18px;
 }
-h1{margin:0;font-size:24px}
-header p{margin:6px 0 0}
+
+header h1{
+  margin:0;
+  font-size:25px;
+}
+
+header p{
+  margin:6px 0 0;
+}
+
 nav{
- display:flex;
- background:white;
- box-shadow:0 2px 5px #999
+  display:flex;
+  background:white;
 }
+
 nav button{
- flex:1;
- padding:16px 5px;
- border:0;
- background:white;
- font-size:16px;
- font-weight:bold
+  width:50%;
+  padding:18px 5px;
+  border:0;
+  background:white;
+  font-size:17px;
+  font-weight:bold;
 }
+
 nav button.active{
- color:#1976d2;
- border-bottom:4px solid #1976d2
+  color:#1976d2;
+  border-bottom:4px solid #1976d2;
 }
-main{padding:15px;max-width:600px;margin:auto}
-.page{display:none}
-.page.active{display:block}
-.search{
- width:100%;
- padding:14px;
- border:1px solid #ccc;
- border-radius:10px;
- font-size:17px;
- margin-bottom:15px
+
+main{
+  padding:15px;
 }
+
 .card{
- background:white;
- border-radius:14px;
- padding:16px;
- margin-bottom:14px;
- box-shadow:0 2px 7px #0002
+  background:white;
+  margin-bottom:15px;
+  padding:16px;
+  border-radius:12px;
+  box-shadow:0 2px 6px #bbb;
 }
-.card h2{margin:0 0 7px;font-size:19px}
-.area{color:#777;margin-bottom:12px}
-.new{
- display:inline-block;
- background:#e53935;
- color:white;
- padding:5px 9px;
- border-radius:7px;
- font-weight:bold;
- margin-bottom:10px
+
+.card h2{
+  margin:0 0 8px;
+  font-size:19px;
 }
-.card button{
- width:100%;
- padding:13px;
- border:0;
- border-radius:9px;
- font-size:16px;
- font-weight:bold;
- margin-top:8px
+
+.area{
+  color:#777;
+  margin-bottom:12px;
 }
-.view{background:#1976d2;color:white}
-.add{background:#43a047;color:white}
-.del{background:#eee;color:#555}
-.empty{text-align:center;padding:40px;color:#777}
+
+button.action{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.add{
+  background:#43a047;
+  color:white;
+}
+
+.view{
+  background:#1976d2;
+  color:white;
+}
+
+.remove{
+  background:#eeeeee;
+  color:#555;
+}
+
+.search{
+  width:100%;
+  padding:14px;
+  box-sizing:border-box;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:17px;
+  margin-bottom:15px;
+}
 </style>
 </head>
 
@@ -91,10 +114,195 @@ main{padding:15px;max-width:600px;margin:auto}
 </header>
 
 <nav>
-<button id="btnMy" class="active" onclick="myPage()">⭐ マイ店舗</button>
-<button id="btnAdd" onclick="addPage()">🔎 お店を追加</button>
+<button id="myButton" class="active">⭐ マイ店舗</button>
+<button id="addButton">🔎 お店を追加</button>
 </nav>
 
 <main>
 
-<div
+<div id="myPage">
+<h2>⭐ マイ店舗</h2>
+<div id="myList"></div>
+</div>
+
+<div id="addPage" style="display:none">
+<h2>🔎 お店を追加</h2>
+
+<input id="searchBox"
+class="search"
+placeholder="お店の名前を入力">
+
+<div id="storeList"></div>
+</div>
+
+</main>
+
+<script>
+
+var stores = [
+  {
+    id:"yaoko",
+    name:"ヤオコー羽生店",
+    area:"羽生市南",
+    url:"https://www.yaoko-net.com/"
+  },
+  {
+    id:"beisia",
+    name:"ベイシア羽生店",
+    area:"羽生市中岩瀬",
+    url:"https://map.beisia.co.jp/"
+  },
+  {
+    id:"cainz",
+    name:"カインズ羽生店",
+    area:"羽生市小松",
+    url:"https://map.cainz.com/"
+  },
+  {
+    id:"belc",
+    name:"ベルク羽生西店",
+    area:"羽生市",
+    url:"https://www.belc.jp/"
+  },
+  {
+    id:"aeon",
+    name:"イオン羽生店",
+    area:"羽生市",
+    url:"https://www.aeon.com/"
+  },
+  {
+    id:"gyomu",
+    name:"業務スーパー羽生店",
+    area:"羽生市",
+    url:"https://www.gyomusuper.jp/"
+  }
+];
+
+var myStores = ["yaoko","beisia","cainz"];
+
+var myButton = document.getElementById("myButton");
+var addButton = document.getElementById("addButton");
+var myPage = document.getElementById("myPage");
+var addPage = document.getElementById("addPage");
+var myList = document.getElementById("myList");
+var storeList = document.getElementById("storeList");
+var searchBox = document.getElementById("searchBox");
+
+myButton.onclick = function(){
+  myPage.style.display = "block";
+  addPage.style.display = "none";
+
+  myButton.className = "active";
+  addButton.className = "";
+
+  showMyStores();
+};
+
+addButton.onclick = function(){
+  myPage.style.display = "none";
+  addPage.style.display = "block";
+
+  myButton.className = "";
+  addButton.className = "active";
+
+  showStores();
+};
+
+searchBox.oninput = function(){
+  showStores();
+};
+
+function showMyStores(){
+
+  myList.innerHTML = "";
+
+  for(var i=0;i<myStores.length;i++){
+
+    var id = myStores[i];
+
+    for(var j=0;j<stores.length;j++){
+
+      if(stores[j].id == id){
+
+        myList.innerHTML +=
+        '<div class="card">' +
+        '<h2>🏪 ' + stores[j].name + '</h2>' +
+        '<div class="area">📍 ' + stores[j].area + '</div>' +
+        '<button class="action view" onclick="openFlyer(\'' + stores[j].url + '\')">📰 チラシを見る</button>' +
+        '<button class="action remove" onclick="removeStore(\'' + id + '\')">🗑️ マイ店舗から削除</button>' +
+        '</div>';
+
+      }
+    }
+  }
+}
+
+function showStores(){
+
+  var word = searchBox.value.toLowerCase();
+
+  storeList.innerHTML = "";
+
+  for(var i=0;i<stores.length;i++){
+
+    if(word != "" &&
+       stores[i].name.toLowerCase().indexOf(word) == -1){
+      continue;
+    }
+
+    var registered = myStores.indexOf(stores[i].id) != -1;
+
+    storeList.innerHTML +=
+    '<div class="card">' +
+    '<h2>🏪 ' + stores[i].name + '</h2>' +
+    '<div class="area">📍 ' + stores[i].area + '</div>' +
+
+    (registered
+      ? '<p>✅ 登録済み</p>'
+      : '<button class="action add" onclick="addStore(\'' + stores[i].id + '\')">＋ マイ店舗に追加</button>'
+    ) +
+
+    '</div>';
+  }
+}
+
+function addStore(id){
+
+  if(myStores.indexOf(id) == -1){
+    myStores.push(id);
+  }
+
+  myPage.style.display = "block";
+  addPage.style.display = "none";
+
+  myButton.className = "active";
+  addButton.className = "";
+
+  showMyStores();
+}
+
+function removeStore(id){
+
+  var newList = [];
+
+  for(var i=0;i<myStores.length;i++){
+    if(myStores[i] != id){
+      newList.push(myStores[i]);
+    }
+  }
+
+  myStores = newList;
+
+  showMyStores();
+}
+
+function openFlyer(url){
+  window.open(url,"_blank");
+}
+
+showMyStores();
+
+</script>
+
+</body>
+</html>
