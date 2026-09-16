@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,44 +23,52 @@ header{
  text-align:center;
 }
 
-header h1{margin:0;font-size:25px}
-header p{margin:6px 0 0;font-size:13px}
-
-.container{
- max-width:600px;
- margin:auto;
- padding:15px;
+header h1{
+ margin:0;
+ font-size:22px;
 }
 
-.search{
- width:100%;
- padding:15px;
- border:1px solid #ddd;
- border-radius:12px;
- font-size:16px;
- background:white;
- margin-bottom:12px;
+header p{
+ margin:6px 0 0;
+ font-size:13px;
 }
 
 .tabs{
  display:flex;
- gap:8px;
- margin-bottom:15px;
+ background:white;
+ position:sticky;
+ top:0;
+ z-index:10;
+ box-shadow:0 2px 5px #0002;
 }
 
 .tab{
  flex:1;
+ padding:15px 5px;
  border:0;
- padding:13px 5px;
- border-radius:10px;
  background:white;
  font-size:15px;
  font-weight:bold;
 }
 
 .tab.active{
- background:#1976d2;
- color:white;
+ color:#1976d2;
+ border-bottom:3px solid #1976d2;
+}
+
+.container{
+ padding:15px;
+ max-width:600px;
+ margin:auto;
+}
+
+.search{
+ width:100%;
+ padding:14px;
+ border:1px solid #ccc;
+ border-radius:12px;
+ font-size:16px;
+ margin-bottom:12px;
 }
 
 .card{
@@ -69,109 +76,80 @@ header p{margin:6px 0 0;font-size:13px}
  border-radius:15px;
  padding:16px;
  margin-bottom:12px;
- box-shadow:0 2px 8px rgba(0,0,0,.08);
+ box-shadow:0 2px 7px #0001;
 }
 
-.store{
- display:flex;
- align-items:center;
- gap:12px;
-}
-
-.icon{
- width:50px;
- height:50px;
- border-radius:12px;
- background:#e3f2fd;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:25px;
- flex-shrink:0;
-}
-
-.store h2{
- margin:0;
+.card h2{
+ margin:0 0 8px;
  font-size:18px;
 }
 
-.store p{
- margin:4px 0;
+.area{
  color:#777;
  font-size:13px;
+ margin-bottom:10px;
 }
 
-.button{
- display:block;
- width:100%;
+.badge{
+ display:inline-block;
+ background:#e53935;
+ color:white;
+ padding:5px 9px;
+ border-radius:8px;
+ font-size:12px;
+ font-weight:bold;
+ margin-bottom:8px;
+}
+
+.period{
+ font-size:14px;
+ margin:5px 0 12px;
+ color:#555;
+}
+
+button.action{
  border:0;
  border-radius:10px;
- padding:13px;
- margin-top:12px;
+ padding:11px 14px;
+ font-size:14px;
+ font-weight:bold;
+}
+
+.view{
  background:#1976d2;
  color:white;
- font-size:15px;
- font-weight:bold;
- text-align:center;
- text-decoration:none;
 }
 
 .add{
  background:#43a047;
+ color:white;
+ float:right;
 }
 
 .delete{
- background:#e53935;
+ background:#eee;
+ color:#555;
+ margin-top:10px;
+ width:100%;
 }
 
 .empty{
  text-align:center;
+ padding:40px 10px;
  color:#777;
- padding:30px 10px;
 }
 
-.title{
- font-size:20px;
- font-weight:bold;
- margin:5px 0 15px;
+.hidden{
+ display:none;
 }
 
-.result{
- background:white;
- border-radius:12px;
- padding:14px;
- margin-bottom:10px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
-}
-
-.result-name{
- font-weight:bold;
-}
-
-.result-area{
- font-size:12px;
- color:#777;
- margin-top:4px;
-}
-
-.small-button{
- border:0;
- border-radius:9px;
- padding:10px 12px;
- background:#43a047;
- color:white;
- font-weight:bold;
- white-space:nowrap;
-}
-
-footer{
- text-align:center;
- color:#888;
- font-size:12px;
- padding:20px;
+.note{
+ background:#fff8e1;
+ border-left:5px solid #ffb300;
+ padding:12px;
+ border-radius:8px;
+ font-size:13px;
+ margin-bottom:15px;
 }
 </style>
 </head>
@@ -179,473 +157,45 @@ footer{
 <body>
 
 <header>
- <h1>📰 羽生チラシ</h1>
- <p>好きなお店だけ登録できます</p>
+<h1>📰 羽生チラシ</h1>
+<p>好きなお店だけ登録できます</p>
 </header>
+
+<div class="tabs">
+<button class="tab active" onclick="showTab('my',this)">⭐ マイ店舗</button>
+<button class="tab" onclick="showTab('add',this)">🔎 お店を追加</button>
+</div>
 
 <div class="container">
 
-<div class="tabs">
- <button class="tab active" onclick="showTab('my',this)">
-  ⭐ マイ店舗
- </button>
-
- <button class="tab" onclick="showTab('searchStore',this)">
-  🔎 お店を追加
- </button>
-</div>
-
-
 <!-- マイ店舗 -->
+<section id="my">
 
-<div id="my">
-
- <div class="title">⭐ マイ店舗</div>
-
- <div id="myStores"></div>
-
+<div class="note">
+🆕 <b>新着チラシ</b>には赤いマークが付きます
 </div>
 
+<div id="myStores"></div>
 
-<!-- 店舗検索 -->
+</section>
 
-<div id="searchStore" style="display:none">
 
- <div class="title">🔎 お店を検索</div>
+<!-- お店を追加 -->
+<section id="add" class="hidden">
 
- <input
-  id="storeSearch"
-  class="search"
-  placeholder="例：ベルク、イオン、セキ"
-  oninput="searchStores()"
- >
+<input
+ id="search"
+ class="search"
+ placeholder="🔎 お店を検索（例：ベルク）"
+ oninput="searchStores()">
 
- <div id="searchResults"></div>
+<div id="storeResults"></div>
 
-</div>
-
-<footer>
- 羽生チラシ
-</footer>
+</section>
 
 </div>
 
 
 <script>
 
-/* 店舗データ */
-
-const stores = [
-
- {
-  id:"yaoko-hanyu",
-  name:"ヤオコー羽生店",
-  area:"羽生市南",
-  icon:"🛒",
-  url:"https://www.yaoko-net.com/store/store01/058.html"
- },
-
- {
-  id:"beisia-hanyu",
-  name:"ベイシア羽生店",
-  area:"羽生市中岩瀬",
-  icon:"🛍️",
-  url:"https://map.beisia.co.jp/map/386"
- },
-
- {
-  id:"cainz-hanyu",
-  name:"カインズ羽生店",
-  area:"羽生市小松",
-  icon:"🔨",
-  url:"https://map.cainz.com/detail/860/"
- },
-
- {
-  id:"belc-nishi",
-  name:"ベルク羽生西店",
-  area:"羽生市西",
-  icon:"🛒",
-  url:"https://www.belc.jp/shop/0029"
- },
-
- {
-  id:"belc-forte",
-  name:"ベルク フォルテ羽生店",
-  area:"羽生市小松",
-  icon:"🛒",
-  url:"https://www.belc.jp/shop/0126"
- },
-
- {
-  id:"aeon-hanyu",
-  name:"イオン羽生店",
-  area:"羽生市川崎",
-  icon:"🏬",
-  url:"https://www.aeon.com/store/%E3%82%A4%E3%82%AA%E3%83%B3/%E3%82%A4%E3%82%AA%E3%83%B3%E7%BE%BD%E7%94%9F%E5%BA%97/"
- },
-
- {
-  id:"big-a-hanyu",
-  name:"ビッグ・エー羽生東店",
-  area:"羽生市東",
-  icon:"🛒",
-  url:"https://www.biga.co.jp/shop/"
- },
-
- {
-  id:"gyomu-hanyu",
-  name:"生鮮＆業務スーパー羽生店",
-  area:"羽生市南",
-  icon:"🛒",
-  url:"https://www.gyomusuper.jp/shop/detail.php?sh_id=639"
- },
-
- {
-  id:"seki-hanyu",
-  name:"ドラッグストアセキ羽生店",
-  area:"羽生市南",
-  icon:"💊",
-  url:"https://www.sekiyakuhin.co.jp/shop/"
- },
-
- {
-  id:"seki-minamihanyu",
-  name:"ドラッグストアセキ南羽生店",
-  area:"羽生市南羽生",
-  icon:"💊",
-  url:"https://www.sekiyakuhin.co.jp/shop/"
- },
-
- {
-  id:"sundrug-hanyu",
-  name:"サンドラッグ羽生店",
-  area:"羽生市中央",
-  icon:"💊",
-  url:"https://www.sundrug-online.com/"
- },
-
- {
-  id:"dcm-hanyu",
-  name:"DCM羽生駅前店",
-  area:"羽生市西",
-  icon:"🔨",
-  url:"https://www.dcm-hc.co.jp/shop/"
- },
-
- {
-  id:"komeri-hanyu",
-  name:"コメリハード＆グリーン羽生店",
-  area:"羽生市東",
-  icon:"🔨",
-  url:"https://www.komeri.com/disp/CKmSfShopSearch.jsp"
- },
-
- {
-  id:"kenzo-higashi",
-  name:"スーパーケンゾー",
-  area:"羽生市東",
-  icon:"🛒",
-  url:"https://www.google.com/search?q=スーパーケンゾー羽生店+チラシ"
- },
-
- {
-  id:"kenzo-honten",
-  name:"スーパーケンゾー本店",
-  area:"羽生市南",
-  icon:"🛒",
-  url:"https://www.google.com/search?q=スーパーケンゾー本店+羽生+チラシ"
- },
-
- {
-  id:"seims-hanyu",
-  name:"ドラッグセイムス羽生店",
-  area:"羽生市西",
-  icon:"💊",
-  url:"https://www.fujiyakuhin.co.jp/shop/"
- },
-
- {
-  id:"seims-kita",
-  name:"ドラッグセイムス北羽生店",
-  area:"羽生市北",
-  icon:"💊",
-  url:"https://www.fujiyakuhin.co.jp/shop/"
- },
-
- {
-  id:"seims-higashi",
-  name:"ドラッグセイムス羽生東店",
-  area:"羽生市東",
-  icon:"💊",
-  url:"https://www.fujiyakuhin.co.jp/shop/"
- },
-
- {
-  id:"welcia-hanyu",
-  name:"ウエルシア羽生下岩瀬店",
-  area:"羽生市下岩瀬",
-  icon:"💊",
-  url:"https://stores.welcia.co.jp/"
- }
-
-];
-
-
-/* 保存 */
-
-function getMyStores(){
-
- const data=localStorage.getItem("myStores");
-
- if(!data){
-
-  return [
-   "yaoko-hanyu",
-   "beisia-hanyu",
-   "cainz-hanyu"
-  ];
-
- }
-
- return JSON.parse(data);
-
-}
-
-
-function saveMyStores(list){
-
- localStorage.setItem(
-  "myStores",
-  JSON.stringify(list)
- );
-
-}
-
-
-/* マイ店舗表示 */
-
-function renderMyStores(){
-
- const box=document.getElementById("myStores");
-
- const ids=getMyStores();
-
- if(ids.length===0){
-
-  box.innerHTML=
-   '<div class="card empty">まだ店舗がありません<br>「お店を追加」から登録してください。</div>';
-
-  return;
- }
-
- box.innerHTML="";
-
- ids.forEach(function(id){
-
-  const s=stores.find(x=>x.id===id);
-
-  if(!s)return;
-
-  const card=document.createElement("div");
-
-  card.className="card";
-
-  card.innerHTML=`
-
-   <div class="store">
-
-    <div class="icon">${s.icon}</div>
-
-    <div>
-     <h2>${s.name}</h2>
-     <p>${s.area}</p>
-    </div>
-
-   </div>
-
-   <a
-    class="button"
-    href="${s.url}"
-    target="_blank">
-    📰 チラシを見る
-   </a>
-
-   <button
-    class="button delete"
-    onclick="removeStore('${s.id}')">
-    🗑️ マイ店舗から削除
-   </button>
-
-  `;
-
-  box.appendChild(card);
-
- });
-
-}
-
-
-/* 店舗検索 */
-
-function searchStores(){
-
- const word=
-  document
-   .getElementById("storeSearch")
-   .value
-   .trim()
-   .toLowerCase();
-
- const box=document.getElementById("searchResults");
-
- if(word===""){
-
-  box.innerHTML=
-   '<div class="empty">店名を入力してください<br>例：ベルク、イオン、セキ</div>';
-
-  return;
-
- }
-
- const results=stores.filter(function(s){
-
-  return(
-   s.name.toLowerCase().includes(word) ||
-   s.area.toLowerCase().includes(word)
-  );
-
- });
-
- if(results.length===0){
-
-  box.innerHTML=`
-   <div class="card empty">
-    「${word}」に一致する店舗がありません
-   </div>
-  `;
-
-  return;
-
- }
-
- const my=getMyStores();
-
- box.innerHTML="";
-
- results.forEach(function(s){
-
-  const added=my.includes(s.id);
-
-  const div=document.createElement("div");
-
-  div.className="result";
-
-  div.innerHTML=`
-
-   <div>
-    <div class="result-name">
-     ${s.icon} ${s.name}
-    </div>
-
-    <div class="result-area">
-     ${s.area}
-    </div>
-   </div>
-
-   ${
-    added
-    ?
-    '<span>⭐追加済み</span>'
-    :
-    `<button
-      class="small-button"
-      onclick="addStore('${s.id}')">
-      ＋追加
-     </button>`
-   }
-
-  `;
-
-  box.appendChild(div);
-
- });
-
-}
-
-
-/* 店舗追加 */
-
-function addStore(id){
-
- const list=getMyStores();
-
- if(!list.includes(id)){
-
-  list.push(id);
-
-  saveMyStores(list);
-
- }
-
- renderMyStores();
-
- searchStores();
-
-}
-
-
-/* 店舗削除 */
-
-function removeStore(id){
-
- let list=getMyStores();
-
- list=list.filter(function(x){
-
-  return x!==id;
-
- });
-
- saveMyStores(list);
-
- renderMyStores();
-
-}
-
-
-/* タブ */
-
-function showTab(tab,button){
-
- document.getElementById("my").style.display=
-  tab==="my" ? "block":"none";
-
- document.getElementById("searchStore").style.display=
-  tab==="searchStore" ? "block":"none";
-
- document.querySelectorAll(".tab").forEach(function(t){
-
-  t.classList.remove("active");
-
- });
-
- button.classList.add("active");
-
- if(tab==="searchStore"){
-
-  searchStores();
-
- }
-
-}
-
-
-/* 起動 */
-
-renderMyStores();
-
-</script>
-
-</body>
-</html>
+const stores=[
