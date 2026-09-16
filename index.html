@@ -3,154 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1976d2">
 <title>羽生チラシ</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
  margin:0;
- font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+ font-family:Arial,"Noto Sans JP",sans-serif;
  background:#f4f6f8;
- color:#222;
+ color:#222
 }
-
 header{
  background:#1976d2;
  color:white;
- padding:18px 15px;
  text-align:center;
+ padding:18px 10px
 }
-
-header h1{
- margin:0;
- font-size:22px;
-}
-
-header p{
- margin:6px 0 0;
- font-size:13px;
-}
-
-.tabs{
+h1{margin:0;font-size:24px}
+header p{margin:6px 0 0}
+nav{
  display:flex;
  background:white;
- position:sticky;
- top:0;
- z-index:10;
- box-shadow:0 2px 5px #0002;
+ box-shadow:0 2px 5px #999
 }
-
-.tab{
+nav button{
  flex:1;
- padding:15px 5px;
+ padding:16px 5px;
  border:0;
  background:white;
- font-size:15px;
- font-weight:bold;
+ font-size:16px;
+ font-weight:bold
 }
-
-.tab.active{
+nav button.active{
  color:#1976d2;
- border-bottom:3px solid #1976d2;
+ border-bottom:4px solid #1976d2
 }
-
-.container{
- padding:15px;
- max-width:600px;
- margin:auto;
-}
-
+main{padding:15px;max-width:600px;margin:auto}
+.page{display:none}
+.page.active{display:block}
 .search{
  width:100%;
  padding:14px;
  border:1px solid #ccc;
- border-radius:12px;
- font-size:16px;
- margin-bottom:12px;
+ border-radius:10px;
+ font-size:17px;
+ margin-bottom:15px
 }
-
 .card{
  background:white;
- border-radius:15px;
+ border-radius:14px;
  padding:16px;
- margin-bottom:12px;
- box-shadow:0 2px 7px #0001;
+ margin-bottom:14px;
+ box-shadow:0 2px 7px #0002
 }
-
-.card h2{
- margin:0 0 8px;
- font-size:18px;
-}
-
-.area{
- color:#777;
- font-size:13px;
- margin-bottom:10px;
-}
-
-.badge{
+.card h2{margin:0 0 7px;font-size:19px}
+.area{color:#777;margin-bottom:12px}
+.new{
  display:inline-block;
  background:#e53935;
  color:white;
  padding:5px 9px;
- border-radius:8px;
- font-size:12px;
+ border-radius:7px;
  font-weight:bold;
- margin-bottom:8px;
+ margin-bottom:10px
 }
-
-.period{
- font-size:14px;
- margin:5px 0 12px;
- color:#555;
-}
-
-button.action{
- border:0;
- border-radius:10px;
- padding:11px 14px;
- font-size:14px;
- font-weight:bold;
-}
-
-.view{
- background:#1976d2;
- color:white;
-}
-
-.add{
- background:#43a047;
- color:white;
- float:right;
-}
-
-.delete{
- background:#eee;
- color:#555;
- margin-top:10px;
+.card button{
  width:100%;
+ padding:13px;
+ border:0;
+ border-radius:9px;
+ font-size:16px;
+ font-weight:bold;
+ margin-top:8px
 }
-
-.empty{
- text-align:center;
- padding:40px 10px;
- color:#777;
-}
-
-.hidden{
- display:none;
-}
-
-.note{
- background:#fff8e1;
- border-left:5px solid #ffb300;
- padding:12px;
- border-radius:8px;
- font-size:13px;
- margin-bottom:15px;
-}
+.view{background:#1976d2;color:white}
+.add{background:#43a047;color:white}
+.del{background:#eee;color:#555}
+.empty{text-align:center;padding:40px;color:#777}
 </style>
 </head>
 
@@ -161,41 +90,11 @@ button.action{
 <p>好きなお店だけ登録できます</p>
 </header>
 
-<div class="tabs">
-<button class="tab active" onclick="showTab('my',this)">⭐ マイ店舗</button>
-<button class="tab" onclick="showTab('add',this)">🔎 お店を追加</button>
-</div>
+<nav>
+<button id="btnMy" class="active" onclick="myPage()">⭐ マイ店舗</button>
+<button id="btnAdd" onclick="addPage()">🔎 お店を追加</button>
+</nav>
 
-<div class="container">
+<main>
 
-<!-- マイ店舗 -->
-<section id="my">
-
-<div class="note">
-🆕 <b>新着チラシ</b>には赤いマークが付きます
-</div>
-
-<div id="myStores"></div>
-
-</section>
-
-
-<!-- お店を追加 -->
-<section id="add" class="hidden">
-
-<input
- id="search"
- class="search"
- placeholder="🔎 お店を検索（例：ベルク）"
- oninput="searchStores()">
-
-<div id="storeResults"></div>
-
-</section>
-
-</div>
-
-
-<script>
-
-const stores=[
+<div
