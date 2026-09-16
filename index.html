@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#1976d2">
+<title>羽生チラシ</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+  background:#f4f6f8;
+  color:#222;
+}
+
+header{
+  background:#1976d2;
+  color:white;
+  padding:18px 16px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:24px;
+}
+
+header p{
+  margin:6px 0 0;
+  font-size:13px;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:15px;
+}
+
+.search{
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  background:white;
+  margin-bottom:15px;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.tab{
+  flex:1;
+  border:0;
+  padding:13px 5px;
+  border-radius:10px;
+  background:white;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.tab.active{
+  background:#1976d2;
+  color:white;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.store{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.icon{
+  width:50px;
+  height:50px;
+  border-radius:12px;
+  background:#e3f2fd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.store h2{
+  margin:0;
+  font-size:18px;
+}
+
+.store p{
+  margin:4px 0 0;
+  color:#777;
+  font-size:13px;
+}
+
+.new{
+  display:inline-block;
+  background:#f44336;
+  color:white;
+  border-radius:6px;
+  padding:3px 7px;
+  font-size:11px;
+  margin-top:8px;
+}
+
+.button{
+  display:block;
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  margin-top:12px;
+  background:#1976d2;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+}
+
+.button.green{
+  background:#43a047;
+}
+
+.product{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+}
+
+.product:last-child{
+  border-bottom:0;
+}
+
+.price{
+  color:#e53935;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:30px 10px;
+}
+
+footer{
+  text-align:center;
+  color:#888;
+  font-size:12px;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📰 羽生チラシ</h1>
+  <p>近くのお店のチラシをチェック</p>
+</header>
+
+<div class="container">
+
+<input
+  id="search"
+  class="search"
+  type="search"
+  placeholder="🔍 商品を検索（卵・米・トイレットペーパーなど）"
+>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('stores',this)">
+    📰 チラシ
+  </button>
+
+  <button class="tab" onclick="showTab('products',this)">
+    🔍 商品検索
+  </button>
+</div>
+
+<div id="stores">
+
+  <div class="card storeCard" data-name="ヤオコー 羽生店">
+    <div class="store">
+      <div class="icon">🛒</div>
+      <div>
+        <h2>ヤオコー羽生店</h2>
+        <p>食品・日用品</p>
+        <span class="new">チラシ確認</span>
+      </div>
+    </div>
+
+    <a
+      class="button"
+      href="https://www.yaoko-net.com/store/store01/058.html"
+      target="_blank">
+      チラシを見る
+    </a>
+  </div>
+
+  <div class="card storeCard" data-name="ベイシア 羽生店">
+    <div class="store">
+      <div class="icon">🛍️</div>
+      <div>
+        <h2>ベイシア羽生店</h2>
+        <p>食品・生活用品</p>
+        <span class="new">チラシ確認</span>
+      </div>
+    </div>
+
+    <a
+      class="button"
+      href="https://map.beisia.co.jp/map/386"
+      target="_blank">
+      チラシを見る
+    </a>
+  </div>
+
+  <div class="card storeCard" data-name="カインズ 羽生店">
+    <div class="store">
+      <div class="icon">🔨</div>
+      <div>
+        <h2>カインズ羽生店</h2>
+        <p>ホームセンター・日用品</p>
+        <span class="new">チラシ確認</span>
+      </div>
+    </div>
+
+    <a
+      class="button"
+      href="https://map.cainz.com/detail/860/"
+      target="_blank">
+      チラシを見る
+    </a>
+  </div>
+
+</div>
+
+
+<div id="products" style="display:none">
+
+  <div class="card">
+
+    <h2>🔍 商品検索</h2>
+
+    <div class="product">
+      <span>🥚 卵</span>
+      <span class="price">チラシを確認</span>
+    </div>
+
+    <div class="product">
+      <span>🍚 米</span>
+      <span class="price">チラシを確認</span>
+    </div>
+
+    <div class="product">
+      <span>🧻 トイレットペーパー</span>
+      <span class="price">チラシを確認</span>
+    </div>
+
+    <div class="product">
+      <span>🧴 洗剤</span>
+      <span class="price">チラシを確認</span>
+    </div>
+
+    <div class="product">
+      <span>🥩 肉</span>
+      <span class="price">チラシを確認</span>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  羽生チラシアプリ
+</footer>
+
+</div>
+
+
+<script>
+
+function showTab(tab,button){
+
+  document.getElementById("stores").style.display =
+    tab === "stores" ? "block" : "none";
+
+  document.getElementById("products").style.display =
+    tab === "products" ? "block" : "none";
+
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.classList.remove("active");
+  });
+
+  button.classList.add("active");
+}
+
+
+document.getElementById("search").addEventListener("input",function(){
+
+  const word = this.value.toLowerCase();
+
+  document.querySelectorAll(".storeCard").forEach(function(card){
+
+    const name = card.dataset.name.toLowerCase();
+
+    if(word === "" || name.includes(word)){
+      card.style.display = "block";
+    }else{
+      card.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
