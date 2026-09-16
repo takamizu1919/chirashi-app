@@ -79,6 +79,7 @@ main{max-width:600px;margin:auto;padding:15px}
 
 <div id="addPage" style="display:none">
 <h2>🔎 お店を追加</h2>
+<input id="searchBox" type="text" placeholder="お店の名前を検索" oninput="searchStores()">
 <div id="storeList"></div>
 </div>
 
@@ -140,7 +141,25 @@ addBtn.onclick=function(){
  addBtn.className="active";
  showAll();
 };
+function searchStores(){
+  var word=document.getElementById("searchBox").value.toLowerCase();
+  var list=document.getElementById("storeList");
 
+  list.innerHTML="";
+
+  stores.forEach(function(s){
+    if(s.name.toLowerCase().includes(word) || s.area.toLowerCase().includes(word)){
+      var div=document.createElement("div");
+      div.innerHTML=
+        "<h3>"+s.name+"</h3>"+
+        "<p>"+s.area+"</p>"+
+        (myStores.includes(s.id)
+          ? "<button onclick=\"removeShop('"+s.id+"')\">登録解除</button>"
+          : "<button onclick=\"addShop('"+s.id+"')\">＋ マイ店舗に追加</button>");
+      list.appendChild(div);
+    }
+  });
+}
 function showMy(){
 
  var box=document.getElementById("myList");
