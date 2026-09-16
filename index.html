@@ -3,169 +3,175 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#1976d2">
 <title>羽生チラシ</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
-  background:#f4f6f8;
-  color:#222;
+ margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+ background:#f4f6f8;
+ color:#222;
 }
 
 header{
-  background:#1976d2;
-  color:white;
-  padding:18px 16px;
-  text-align:center;
+ background:#1976d2;
+ color:white;
+ padding:18px 15px;
+ text-align:center;
 }
 
-header h1{
-  margin:0;
-  font-size:24px;
-}
-
-header p{
-  margin:6px 0 0;
-  font-size:13px;
-}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;font-size:13px}
 
 .container{
-  max-width:600px;
-  margin:auto;
-  padding:15px;
+ max-width:600px;
+ margin:auto;
+ padding:15px;
 }
 
 .search{
-  width:100%;
-  padding:15px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:16px;
-  background:white;
-  margin-bottom:15px;
+ width:100%;
+ padding:15px;
+ border:1px solid #ddd;
+ border-radius:12px;
+ font-size:16px;
+ background:white;
+ margin-bottom:12px;
 }
 
 .tabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
+ display:flex;
+ gap:8px;
+ margin-bottom:15px;
 }
 
 .tab{
-  flex:1;
-  border:0;
-  padding:13px 5px;
-  border-radius:10px;
-  background:white;
-  font-size:15px;
-  font-weight:bold;
+ flex:1;
+ border:0;
+ padding:13px 5px;
+ border-radius:10px;
+ background:white;
+ font-size:15px;
+ font-weight:bold;
 }
 
 .tab.active{
-  background:#1976d2;
-  color:white;
+ background:#1976d2;
+ color:white;
 }
 
 .card{
-  background:white;
-  border-radius:15px;
-  padding:16px;
-  margin-bottom:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+ background:white;
+ border-radius:15px;
+ padding:16px;
+ margin-bottom:12px;
+ box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .store{
-  display:flex;
-  align-items:center;
-  gap:12px;
+ display:flex;
+ align-items:center;
+ gap:12px;
 }
 
 .icon{
-  width:50px;
-  height:50px;
-  border-radius:12px;
-  background:#e3f2fd;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
+ width:50px;
+ height:50px;
+ border-radius:12px;
+ background:#e3f2fd;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:25px;
+ flex-shrink:0;
 }
 
 .store h2{
-  margin:0;
-  font-size:18px;
+ margin:0;
+ font-size:18px;
 }
 
 .store p{
-  margin:4px 0 0;
-  color:#777;
-  font-size:13px;
-}
-
-.new{
-  display:inline-block;
-  background:#f44336;
-  color:white;
-  border-radius:6px;
-  padding:3px 7px;
-  font-size:11px;
-  margin-top:8px;
+ margin:4px 0;
+ color:#777;
+ font-size:13px;
 }
 
 .button{
-  display:block;
-  width:100%;
-  border:0;
-  border-radius:10px;
-  padding:13px;
-  margin-top:12px;
-  background:#1976d2;
-  color:white;
-  font-size:15px;
-  font-weight:bold;
-  text-align:center;
-  text-decoration:none;
+ display:block;
+ width:100%;
+ border:0;
+ border-radius:10px;
+ padding:13px;
+ margin-top:12px;
+ background:#1976d2;
+ color:white;
+ font-size:15px;
+ font-weight:bold;
+ text-align:center;
+ text-decoration:none;
 }
 
-.button.green{
-  background:#43a047;
+.add{
+ background:#43a047;
 }
 
-.product{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid #eee;
-}
-
-.product:last-child{
-  border-bottom:0;
-}
-
-.price{
-  color:#e53935;
-  font-weight:bold;
+.delete{
+ background:#e53935;
 }
 
 .empty{
-  text-align:center;
-  color:#777;
-  padding:30px 10px;
+ text-align:center;
+ color:#777;
+ padding:30px 10px;
+}
+
+.title{
+ font-size:20px;
+ font-weight:bold;
+ margin:5px 0 15px;
+}
+
+.result{
+ background:white;
+ border-radius:12px;
+ padding:14px;
+ margin-bottom:10px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.result-name{
+ font-weight:bold;
+}
+
+.result-area{
+ font-size:12px;
+ color:#777;
+ margin-top:4px;
+}
+
+.small-button{
+ border:0;
+ border-radius:9px;
+ padding:10px 12px;
+ background:#43a047;
+ color:white;
+ font-weight:bold;
+ white-space:nowrap;
 }
 
 footer{
-  text-align:center;
-  color:#888;
-  font-size:12px;
-  padding:20px;
+ text-align:center;
+ color:#888;
+ font-size:12px;
+ padding:20px;
 }
 </style>
 </head>
@@ -173,125 +179,53 @@ footer{
 <body>
 
 <header>
-  <h1>📰 羽生チラシ</h1>
-  <p>近くのお店のチラシをチェック</p>
+ <h1>📰 羽生チラシ</h1>
+ <p>好きなお店だけ登録できます</p>
 </header>
 
 <div class="container">
 
-<input
-  id="search"
-  class="search"
-  type="search"
-  placeholder="🔍 商品を検索（卵・米・トイレットペーパーなど）"
->
-
 <div class="tabs">
-  <button class="tab active" onclick="showTab('stores',this)">
-    📰 チラシ
-  </button>
+ <button class="tab active" onclick="showTab('my',this)">
+  ⭐ マイ店舗
+ </button>
 
-  <button class="tab" onclick="showTab('products',this)">
-    🔍 商品検索
-  </button>
+ <button class="tab" onclick="showTab('searchStore',this)">
+  🔎 お店を追加
+ </button>
 </div>
 
-<div id="stores">
 
-  <div class="card storeCard" data-name="ヤオコー 羽生店">
-    <div class="store">
-      <div class="icon">🛒</div>
-      <div>
-        <h2>ヤオコー羽生店</h2>
-        <p>食品・日用品</p>
-        <span class="new">チラシ確認</span>
-      </div>
-    </div>
+<!-- マイ店舗 -->
 
-    <a
-      class="button"
-      href="https://www.yaoko-net.com/store/store01/058.html"
-      target="_blank">
-      チラシを見る
-    </a>
-  </div>
+<div id="my">
 
-  <div class="card storeCard" data-name="ベイシア 羽生店">
-    <div class="store">
-      <div class="icon">🛍️</div>
-      <div>
-        <h2>ベイシア羽生店</h2>
-        <p>食品・生活用品</p>
-        <span class="new">チラシ確認</span>
-      </div>
-    </div>
+ <div class="title">⭐ マイ店舗</div>
 
-    <a
-      class="button"
-      href="https://map.beisia.co.jp/map/386"
-      target="_blank">
-      チラシを見る
-    </a>
-  </div>
-
-  <div class="card storeCard" data-name="カインズ 羽生店">
-    <div class="store">
-      <div class="icon">🔨</div>
-      <div>
-        <h2>カインズ羽生店</h2>
-        <p>ホームセンター・日用品</p>
-        <span class="new">チラシ確認</span>
-      </div>
-    </div>
-
-    <a
-      class="button"
-      href="https://map.cainz.com/detail/860/"
-      target="_blank">
-      チラシを見る
-    </a>
-  </div>
+ <div id="myStores"></div>
 
 </div>
 
 
-<div id="products" style="display:none">
+<!-- 店舗検索 -->
 
-  <div class="card">
+<div id="searchStore" style="display:none">
 
-    <h2>🔍 商品検索</h2>
+ <div class="title">🔎 お店を検索</div>
 
-    <div class="product">
-      <span>🥚 卵</span>
-      <span class="price">チラシを確認</span>
-    </div>
+ <input
+  id="storeSearch"
+  class="search"
+  placeholder="例：ベルク、イオン、セキ"
+  oninput="searchStores()"
+ >
 
-    <div class="product">
-      <span>🍚 米</span>
-      <span class="price">チラシを確認</span>
-    </div>
-
-    <div class="product">
-      <span>🧻 トイレットペーパー</span>
-      <span class="price">チラシを確認</span>
-    </div>
-
-    <div class="product">
-      <span>🧴 洗剤</span>
-      <span class="price">チラシを確認</span>
-    </div>
-
-    <div class="product">
-      <span>🥩 肉</span>
-      <span class="price">チラシを確認</span>
-    </div>
-
-  </div>
+ <div id="searchResults"></div>
 
 </div>
 
 <footer>
-  羽生チラシアプリ
+ 羽生チラシ
 </footer>
 
 </div>
@@ -299,39 +233,417 @@ footer{
 
 <script>
 
-function showTab(tab,button){
+/* 店舗データ */
 
-  document.getElementById("stores").style.display =
-    tab === "stores" ? "block" : "none";
+const stores = [
 
-  document.getElementById("products").style.display =
-    tab === "products" ? "block" : "none";
+ {
+  id:"yaoko-hanyu",
+  name:"ヤオコー羽生店",
+  area:"羽生市南",
+  icon:"🛒",
+  url:"https://www.yaoko-net.com/store/store01/058.html"
+ },
 
-  document.querySelectorAll(".tab").forEach(function(t){
-    t.classList.remove("active");
-  });
+ {
+  id:"beisia-hanyu",
+  name:"ベイシア羽生店",
+  area:"羽生市中岩瀬",
+  icon:"🛍️",
+  url:"https://map.beisia.co.jp/map/386"
+ },
 
-  button.classList.add("active");
+ {
+  id:"cainz-hanyu",
+  name:"カインズ羽生店",
+  area:"羽生市小松",
+  icon:"🔨",
+  url:"https://map.cainz.com/detail/860/"
+ },
+
+ {
+  id:"belc-nishi",
+  name:"ベルク羽生西店",
+  area:"羽生市西",
+  icon:"🛒",
+  url:"https://www.belc.jp/shop/0029"
+ },
+
+ {
+  id:"belc-forte",
+  name:"ベルク フォルテ羽生店",
+  area:"羽生市小松",
+  icon:"🛒",
+  url:"https://www.belc.jp/shop/0126"
+ },
+
+ {
+  id:"aeon-hanyu",
+  name:"イオン羽生店",
+  area:"羽生市川崎",
+  icon:"🏬",
+  url:"https://www.aeon.com/store/%E3%82%A4%E3%82%AA%E3%83%B3/%E3%82%A4%E3%82%AA%E3%83%B3%E7%BE%BD%E7%94%9F%E5%BA%97/"
+ },
+
+ {
+  id:"big-a-hanyu",
+  name:"ビッグ・エー羽生東店",
+  area:"羽生市東",
+  icon:"🛒",
+  url:"https://www.biga.co.jp/shop/"
+ },
+
+ {
+  id:"gyomu-hanyu",
+  name:"生鮮＆業務スーパー羽生店",
+  area:"羽生市南",
+  icon:"🛒",
+  url:"https://www.gyomusuper.jp/shop/detail.php?sh_id=639"
+ },
+
+ {
+  id:"seki-hanyu",
+  name:"ドラッグストアセキ羽生店",
+  area:"羽生市南",
+  icon:"💊",
+  url:"https://www.sekiyakuhin.co.jp/shop/"
+ },
+
+ {
+  id:"seki-minamihanyu",
+  name:"ドラッグストアセキ南羽生店",
+  area:"羽生市南羽生",
+  icon:"💊",
+  url:"https://www.sekiyakuhin.co.jp/shop/"
+ },
+
+ {
+  id:"sundrug-hanyu",
+  name:"サンドラッグ羽生店",
+  area:"羽生市中央",
+  icon:"💊",
+  url:"https://www.sundrug-online.com/"
+ },
+
+ {
+  id:"dcm-hanyu",
+  name:"DCM羽生駅前店",
+  area:"羽生市西",
+  icon:"🔨",
+  url:"https://www.dcm-hc.co.jp/shop/"
+ },
+
+ {
+  id:"komeri-hanyu",
+  name:"コメリハード＆グリーン羽生店",
+  area:"羽生市東",
+  icon:"🔨",
+  url:"https://www.komeri.com/disp/CKmSfShopSearch.jsp"
+ },
+
+ {
+  id:"kenzo-higashi",
+  name:"スーパーケンゾー",
+  area:"羽生市東",
+  icon:"🛒",
+  url:"https://www.google.com/search?q=スーパーケンゾー羽生店+チラシ"
+ },
+
+ {
+  id:"kenzo-honten",
+  name:"スーパーケンゾー本店",
+  area:"羽生市南",
+  icon:"🛒",
+  url:"https://www.google.com/search?q=スーパーケンゾー本店+羽生+チラシ"
+ },
+
+ {
+  id:"seims-hanyu",
+  name:"ドラッグセイムス羽生店",
+  area:"羽生市西",
+  icon:"💊",
+  url:"https://www.fujiyakuhin.co.jp/shop/"
+ },
+
+ {
+  id:"seims-kita",
+  name:"ドラッグセイムス北羽生店",
+  area:"羽生市北",
+  icon:"💊",
+  url:"https://www.fujiyakuhin.co.jp/shop/"
+ },
+
+ {
+  id:"seims-higashi",
+  name:"ドラッグセイムス羽生東店",
+  area:"羽生市東",
+  icon:"💊",
+  url:"https://www.fujiyakuhin.co.jp/shop/"
+ },
+
+ {
+  id:"welcia-hanyu",
+  name:"ウエルシア羽生下岩瀬店",
+  area:"羽生市下岩瀬",
+  icon:"💊",
+  url:"https://stores.welcia.co.jp/"
+ }
+
+];
+
+
+/* 保存 */
+
+function getMyStores(){
+
+ const data=localStorage.getItem("myStores");
+
+ if(!data){
+
+  return [
+   "yaoko-hanyu",
+   "beisia-hanyu",
+   "cainz-hanyu"
+  ];
+
+ }
+
+ return JSON.parse(data);
+
 }
 
 
-document.getElementById("search").addEventListener("input",function(){
+function saveMyStores(list){
 
-  const word = this.value.toLowerCase();
+ localStorage.setItem(
+  "myStores",
+  JSON.stringify(list)
+ );
 
-  document.querySelectorAll(".storeCard").forEach(function(card){
+}
 
-    const name = card.dataset.name.toLowerCase();
 
-    if(word === "" || name.includes(word)){
-      card.style.display = "block";
-    }else{
-      card.style.display = "none";
-    }
+/* マイ店舗表示 */
 
-  });
+function renderMyStores(){
 
-});
+ const box=document.getElementById("myStores");
+
+ const ids=getMyStores();
+
+ if(ids.length===0){
+
+  box.innerHTML=
+   '<div class="card empty">まだ店舗がありません<br>「お店を追加」から登録してください。</div>';
+
+  return;
+ }
+
+ box.innerHTML="";
+
+ ids.forEach(function(id){
+
+  const s=stores.find(x=>x.id===id);
+
+  if(!s)return;
+
+  const card=document.createElement("div");
+
+  card.className="card";
+
+  card.innerHTML=`
+
+   <div class="store">
+
+    <div class="icon">${s.icon}</div>
+
+    <div>
+     <h2>${s.name}</h2>
+     <p>${s.area}</p>
+    </div>
+
+   </div>
+
+   <a
+    class="button"
+    href="${s.url}"
+    target="_blank">
+    📰 チラシを見る
+   </a>
+
+   <button
+    class="button delete"
+    onclick="removeStore('${s.id}')">
+    🗑️ マイ店舗から削除
+   </button>
+
+  `;
+
+  box.appendChild(card);
+
+ });
+
+}
+
+
+/* 店舗検索 */
+
+function searchStores(){
+
+ const word=
+  document
+   .getElementById("storeSearch")
+   .value
+   .trim()
+   .toLowerCase();
+
+ const box=document.getElementById("searchResults");
+
+ if(word===""){
+
+  box.innerHTML=
+   '<div class="empty">店名を入力してください<br>例：ベルク、イオン、セキ</div>';
+
+  return;
+
+ }
+
+ const results=stores.filter(function(s){
+
+  return(
+   s.name.toLowerCase().includes(word) ||
+   s.area.toLowerCase().includes(word)
+  );
+
+ });
+
+ if(results.length===0){
+
+  box.innerHTML=`
+   <div class="card empty">
+    「${word}」に一致する店舗がありません
+   </div>
+  `;
+
+  return;
+
+ }
+
+ const my=getMyStores();
+
+ box.innerHTML="";
+
+ results.forEach(function(s){
+
+  const added=my.includes(s.id);
+
+  const div=document.createElement("div");
+
+  div.className="result";
+
+  div.innerHTML=`
+
+   <div>
+    <div class="result-name">
+     ${s.icon} ${s.name}
+    </div>
+
+    <div class="result-area">
+     ${s.area}
+    </div>
+   </div>
+
+   ${
+    added
+    ?
+    '<span>⭐追加済み</span>'
+    :
+    `<button
+      class="small-button"
+      onclick="addStore('${s.id}')">
+      ＋追加
+     </button>`
+   }
+
+  `;
+
+  box.appendChild(div);
+
+ });
+
+}
+
+
+/* 店舗追加 */
+
+function addStore(id){
+
+ const list=getMyStores();
+
+ if(!list.includes(id)){
+
+  list.push(id);
+
+  saveMyStores(list);
+
+ }
+
+ renderMyStores();
+
+ searchStores();
+
+}
+
+
+/* 店舗削除 */
+
+function removeStore(id){
+
+ let list=getMyStores();
+
+ list=list.filter(function(x){
+
+  return x!==id;
+
+ });
+
+ saveMyStores(list);
+
+ renderMyStores();
+
+}
+
+
+/* タブ */
+
+function showTab(tab,button){
+
+ document.getElementById("my").style.display=
+  tab==="my" ? "block":"none";
+
+ document.getElementById("searchStore").style.display=
+  tab==="searchStore" ? "block":"none";
+
+ document.querySelectorAll(".tab").forEach(function(t){
+
+  t.classList.remove("active");
+
+ });
+
+ button.classList.add("active");
+
+ if(tab==="searchStore"){
+
+  searchStores();
+
+ }
+
+}
+
+
+/* 起動 */
+
+renderMyStores();
 
 </script>
 
