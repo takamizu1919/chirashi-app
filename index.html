@@ -9,22 +9,21 @@
 body{
  margin:0;
  font-family:Arial,"Noto Sans JP",sans-serif;
- background:#f3f5f7;
+ background:#f4f6f8;
  color:#222;
 }
 header{
  background:#1976d2;
  color:white;
  text-align:center;
- padding:18px 10px;
+ padding:18px;
 }
 header h1{margin:0;font-size:25px}
-header p{margin:6px 0 0}
+header p{margin:6px 0}
 
 nav{
  display:flex;
  background:white;
- box-shadow:0 2px 5px #aaa;
 }
 nav button{
  width:50%;
@@ -47,14 +46,14 @@ main{
 
 .card{
  background:white;
- border-radius:13px;
+ border-radius:14px;
  padding:16px;
- margin-bottom:14px;
+ margin-bottom:15px;
  box-shadow:0 2px 7px #bbb;
 }
 
 .card h2{
- margin:0 0 7px;
+ margin:0 0 8px;
  font-size:19px;
 }
 
@@ -63,27 +62,7 @@ main{
  margin-bottom:12px;
 }
 
-.new{
- display:inline-block;
- background:#e53935;
- color:white;
- border-radius:7px;
- padding:5px 9px;
- font-weight:bold;
- margin-bottom:10px;
-}
-
-.action{
- width:100%;
- padding:14px;
- border:0;
- border-radius:9px;
- margin-top:8px;
- font-size:16px;
- font-weight:bold;
-}
-
-.view{
+.flyer{
  background:#1976d2;
  color:white;
 }
@@ -98,14 +77,14 @@ main{
  color:#555;
 }
 
-.search{
+.action{
  width:100%;
  padding:14px;
- box-sizing:border-box;
- border:1px solid #ccc;
- border-radius:10px;
- font-size:17px;
- margin-bottom:15px;
+ margin-top:8px;
+ border:0;
+ border-radius:9px;
+ font-size:16px;
+ font-weight:bold;
 }
 </style>
 </head>
@@ -114,12 +93,12 @@ main{
 
 <header>
 <h1>📰 羽生チラシ</h1>
-<p>羽生市のお店のチラシをまとめてチェック</p>
+<p>羽生市のお店のチラシ</p>
 </header>
 
 <nav>
-<button id="myButton" class="active">⭐ マイ店舗</button>
-<button id="addButton">🔎 お店を追加</button>
+<button id="myBtn" class="active">⭐ マイ店舗</button>
+<button id="addBtn">🔎 お店を追加</button>
 </nav>
 
 <main>
@@ -130,24 +109,15 @@ main{
 </div>
 
 <div id="addPage" style="display:none">
-
 <h2>🔎 お店を追加</h2>
-
-<input
- id="searchBox"
- class="search"
- placeholder="例：ヤオコー、ベルク"
->
-
 <div id="storeList"></div>
-
 </div>
 
 </main>
 
 <script>
 
-var stores = [
+var stores=[
 
 {
  id:"yaoko",
@@ -175,157 +145,155 @@ var stores = [
  name:"ベルク羽生西店",
  area:"羽生市西2-18-19",
  url:"https://www.belc.jp/shop/0029"
-},
-
-{
- id:"aeon",
- name:"イオン羽生店",
- area:"羽生市川崎2-281-3",
- url:"https://www.aeon.com/store/%E3%82%A4%E3%82%AA%E3%83%B3/%E3%82%A4%E3%82%AA%E3%83%B3%E7%BE%BD%E7%94%9F%E5%BA%97/info/"
-},
-
-{
- id:"gyomu",
- name:"業務スーパー羽生店",
- area:"羽生市南4-8-16",
- url:"https://www.gyomusuper.jp/shop/detail.php?sh_id=639"
 }
 
 ];
 
-var myStores = ["yaoko","beisia","cainz"];
+var myStores=["yaoko","beisia","cainz"];
 
-var myButton = document.getElementById("myButton");
-var addButton = document.getElementById("addButton");
+var myBtn=document.getElementById("myBtn");
+var addBtn=document.getElementById("addBtn");
+var myPage=document.getElementById("myPage");
+var addPage=document.getElementById("addPage");
 
-var myPage = document.getElementById("myPage");
-var addPage = document.getElementById("addPage");
-
-var myList = document.getElementById("myList");
-var storeList = document.getElementById("storeList");
-
-var searchBox = document.getElementById("searchBox");
-
-
-myButton.onclick = function(){
+myBtn.onclick=function(){
 
  myPage.style.display="block";
  addPage.style.display="none";
 
- myButton.className="active";
- addButton.className="";
+ myBtn.className="active";
+ addBtn.className="";
 
- showMyStores();
+ showMy();
 
 };
 
-
-addButton.onclick = function(){
+addBtn.onclick=function(){
 
  myPage.style.display="none";
  addPage.style.display="block";
 
- myButton.className="";
- addButton.className="active";
+ myBtn.className="";
+ addBtn.className="active";
 
- showStores();
+ showAll();
 
 };
 
+function showMy(){
 
-searchBox.oninput = function(){
- showStores();
-};
+ var box=document.getElementById("myList");
 
-
-function showMyStores(){
-
- myList.innerHTML="";
-
- if(myStores.length==0){
-
-  myList.innerHTML=
-  '<div class="card">登録されているお店はありません。</div>';
-
-  return;
- }
+ box.innerHTML="";
 
  for(var i=0;i<myStores.length;i++){
 
-  for(var j=0;j<stores.length;j++){
+  var shop=findShop(myStores[i]);
 
-   if(myStores[i]==stores[j].id){
+  if(shop){
 
-    myList.innerHTML +=
+   box.innerHTML+=
+   '<div class="card">'+
+   '<h2>🏪 '+shop.name+'</h2>'+
+   '<div class="area">📍 '+shop.area+'</div>'+
+   '<button class="action flyer" onclick="openFlyer(\''+
+   shop.url+
+   '\')">📰 '+shop.name+'のチラシを見る</button>'+
+   '<button class="action remove" onclick="removeShop(\''+
+   shop.id+
+   '\')">🗑️ マイ店舗から削除</button>'+
+   '</div>';
 
-    '<div class="card">'+
-
-    '<h2>🏪 '+stores[j].name+'</h2>'+
-
-    '<div class="area">📍 '+stores[j].area+'</div>'+
-
-    '<div class="new">🆕 チラシ</div>'+
-
-    '<button class="action view" '+
-    'onclick="openFlyer(\''+stores[j].url+'\')">'+
-    '📰 この店舗のチラシを見る'+
-    '</button>'+
-
-    '<button class="action remove" '+
-    'onclick="removeStore(\''+stores[j].id+'\')">'+
-    '🗑️ マイ店舗から削除'+
-    '</button>'+
-
-    '</div>';
-   }
   }
  }
 }
 
+function showAll(){
 
-function showStores(){
+ var box=document.getElementById("storeList");
 
- var word=searchBox.value.toLowerCase();
-
- storeList.innerHTML="";
+ box.innerHTML="";
 
  for(var i=0;i<stores.length;i++){
 
-  if(
-   word!="" &&
-   stores[i].name.toLowerCase().indexOf(word)==-1
-  ){
-   continue;
-  }
+  var shop=stores[i];
 
-  var registered=
-   myStores.indexOf(stores[i].id)!=-1;
+  var registered=myStores.indexOf(shop.id)>=0;
 
-  storeList.innerHTML +=
-
+  box.innerHTML+=
   '<div class="card">'+
-
-  '<h2>🏪 '+stores[i].name+'</h2>'+
-
-  '<div class="area">📍 '+stores[i].area+'</div>'+
-
+  '<h2>🏪 '+shop.name+'</h2>'+
+  '<div class="area">📍 '+shop.area+'</div>'+
   (
    registered
    ?
-   '<p>✅ マイ店舗に登録済み</p>'
+   '<p>✅ 登録済み</p>'
    :
-   '<button class="action add" '+
-   'onclick="addStore(\''+stores[i].id+'\')">'+
-   '＋ マイ店舗に追加'+
-   '</button>'
+   '<button class="action add" onclick="addShop(\''+
+   shop.id+
+   '\')">＋ マイ店舗に追加</button>'
   )+
-
   '</div>';
+
  }
 }
 
+function findShop(id){
 
-function addStore(id){
+ for(var i=0;i<stores.length;i++){
 
- if(myStores.indexOf(id)==-1){
- 
+  if(stores[i].id==id){
+   return stores[i];
+  }
+
+ }
+
+ return null;
+}
+
+function addShop(id){
+
+ if(myStores.indexOf(id)<0){
+  myStores.push(id);
+ }
+
+ showMy();
+
+ myPage.style.display="block";
+ addPage.style.display="none";
+
+ myBtn.className="active";
+ addBtn.className="";
+
+}
+
+function removeShop(id){
+
+ var result=[];
+
+ for(var i=0;i<myStores.length;i++){
+
+  if(myStores[i]!=id){
+   result.push(myStores[i]);
+  }
+
+ }
+
+ myStores=result;
+
+ showMy();
+
+}
+
+function openFlyer(url){
+
+ window.open(url,"_blank");
+
+}
+
+showMy();
+
+</script>
+
+</body>
+</html>
