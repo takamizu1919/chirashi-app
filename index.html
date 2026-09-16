@@ -2,106 +2,110 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>羽生チラシ</title>
 
 <style>
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f6f8;
+ margin:0;
+ font-family:Arial,"Noto Sans JP",sans-serif;
+ background:#f3f5f7;
+ color:#222;
 }
-
 header{
-  background:#1976d2;
-  color:white;
-  text-align:center;
-  padding:18px;
+ background:#1976d2;
+ color:white;
+ text-align:center;
+ padding:18px 10px;
 }
-
-header h1{
-  margin:0;
-  font-size:25px;
-}
-
-header p{
-  margin:6px 0 0;
-}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0}
 
 nav{
-  display:flex;
-  background:white;
+ display:flex;
+ background:white;
+ box-shadow:0 2px 5px #aaa;
 }
-
 nav button{
-  width:50%;
-  padding:18px 5px;
-  border:0;
-  background:white;
-  font-size:17px;
-  font-weight:bold;
+ width:50%;
+ padding:17px 5px;
+ border:0;
+ background:white;
+ font-size:16px;
+ font-weight:bold;
 }
-
 nav button.active{
-  color:#1976d2;
-  border-bottom:4px solid #1976d2;
+ color:#1976d2;
+ border-bottom:4px solid #1976d2;
 }
 
 main{
-  padding:15px;
+ max-width:600px;
+ margin:auto;
+ padding:15px;
 }
 
 .card{
-  background:white;
-  margin-bottom:15px;
-  padding:16px;
-  border-radius:12px;
-  box-shadow:0 2px 6px #bbb;
+ background:white;
+ border-radius:13px;
+ padding:16px;
+ margin-bottom:14px;
+ box-shadow:0 2px 7px #bbb;
 }
 
 .card h2{
-  margin:0 0 8px;
-  font-size:19px;
+ margin:0 0 7px;
+ font-size:19px;
 }
 
 .area{
-  color:#777;
-  margin-bottom:12px;
+ color:#777;
+ margin-bottom:12px;
 }
 
-button.action{
-  width:100%;
-  padding:13px;
-  border:0;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  margin-top:8px;
+.new{
+ display:inline-block;
+ background:#e53935;
+ color:white;
+ border-radius:7px;
+ padding:5px 9px;
+ font-weight:bold;
+ margin-bottom:10px;
 }
 
-.add{
-  background:#43a047;
-  color:white;
+.action{
+ width:100%;
+ padding:14px;
+ border:0;
+ border-radius:9px;
+ margin-top:8px;
+ font-size:16px;
+ font-weight:bold;
 }
 
 .view{
-  background:#1976d2;
-  color:white;
+ background:#1976d2;
+ color:white;
+}
+
+.add{
+ background:#43a047;
+ color:white;
 }
 
 .remove{
-  background:#eeeeee;
-  color:#555;
+ background:#eee;
+ color:#555;
 }
 
 .search{
-  width:100%;
-  padding:14px;
-  box-sizing:border-box;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:17px;
-  margin-bottom:15px;
+ width:100%;
+ padding:14px;
+ box-sizing:border-box;
+ border:1px solid #ccc;
+ border-radius:10px;
+ font-size:17px;
+ margin-bottom:15px;
 }
 </style>
 </head>
@@ -110,7 +114,7 @@ button.action{
 
 <header>
 <h1>📰 羽生チラシ</h1>
-<p>好きなお店だけ登録できます</p>
+<p>羽生市のお店のチラシをまとめてチェック</p>
 </header>
 
 <nav>
@@ -126,13 +130,17 @@ button.action{
 </div>
 
 <div id="addPage" style="display:none">
+
 <h2>🔎 お店を追加</h2>
 
-<input id="searchBox"
-class="search"
-placeholder="お店の名前を入力">
+<input
+ id="searchBox"
+ class="search"
+ placeholder="例：ヤオコー、ベルク"
+>
 
 <div id="storeList"></div>
+
 </div>
 
 </main>
@@ -140,169 +148,184 @@ placeholder="お店の名前を入力">
 <script>
 
 var stores = [
-  {
-    id:"yaoko",
-    name:"ヤオコー羽生店",
-    area:"羽生市南",
-    url:"https://www.yaoko-net.com/"
-  },
-  {
-    id:"beisia",
-    name:"ベイシア羽生店",
-    area:"羽生市中岩瀬",
-    url:"https://map.beisia.co.jp/"
-  },
-  {
-    id:"cainz",
-    name:"カインズ羽生店",
-    area:"羽生市小松",
-    url:"https://map.cainz.com/"
-  },
-  {
-    id:"belc",
-    name:"ベルク羽生西店",
-    area:"羽生市",
-    url:"https://www.belc.jp/"
-  },
-  {
-    id:"aeon",
-    name:"イオン羽生店",
-    area:"羽生市",
-    url:"https://www.aeon.com/"
-  },
-  {
-    id:"gyomu",
-    name:"業務スーパー羽生店",
-    area:"羽生市",
-    url:"https://www.gyomusuper.jp/"
-  }
+
+{
+ id:"yaoko",
+ name:"ヤオコー羽生店",
+ area:"羽生市南4-255",
+ url:"https://www.yaoko-net.com/store/store01/058.html"
+},
+
+{
+ id:"beisia",
+ name:"ベイシア羽生店",
+ area:"羽生市中岩瀬700",
+ url:"https://chirashi.line.me/branches/5da85a26fd8da8d8d9475899"
+},
+
+{
+ id:"cainz",
+ name:"カインズ羽生店",
+ area:"羽生市大字小松388",
+ url:"https://map.cainz.com/detail/860/"
+},
+
+{
+ id:"belc",
+ name:"ベルク羽生西店",
+ area:"羽生市西2-18-19",
+ url:"https://www.belc.jp/shop/0029"
+},
+
+{
+ id:"aeon",
+ name:"イオン羽生店",
+ area:"羽生市川崎2-281-3",
+ url:"https://www.aeon.com/store/%E3%82%A4%E3%82%AA%E3%83%B3/%E3%82%A4%E3%82%AA%E3%83%B3%E7%BE%BD%E7%94%9F%E5%BA%97/info/"
+},
+
+{
+ id:"gyomu",
+ name:"業務スーパー羽生店",
+ area:"羽生市南4-8-16",
+ url:"https://www.gyomusuper.jp/shop/detail.php?sh_id=639"
+}
+
 ];
 
 var myStores = ["yaoko","beisia","cainz"];
 
 var myButton = document.getElementById("myButton");
 var addButton = document.getElementById("addButton");
+
 var myPage = document.getElementById("myPage");
 var addPage = document.getElementById("addPage");
+
 var myList = document.getElementById("myList");
 var storeList = document.getElementById("storeList");
+
 var searchBox = document.getElementById("searchBox");
 
+
 myButton.onclick = function(){
-  myPage.style.display = "block";
-  addPage.style.display = "none";
 
-  myButton.className = "active";
-  addButton.className = "";
+ myPage.style.display="block";
+ addPage.style.display="none";
 
-  showMyStores();
+ myButton.className="active";
+ addButton.className="";
+
+ showMyStores();
+
 };
+
 
 addButton.onclick = function(){
-  myPage.style.display = "none";
-  addPage.style.display = "block";
 
-  myButton.className = "";
-  addButton.className = "active";
+ myPage.style.display="none";
+ addPage.style.display="block";
 
-  showStores();
+ myButton.className="";
+ addButton.className="active";
+
+ showStores();
+
 };
+
 
 searchBox.oninput = function(){
-  showStores();
+ showStores();
 };
+
 
 function showMyStores(){
 
-  myList.innerHTML = "";
+ myList.innerHTML="";
 
-  for(var i=0;i<myStores.length;i++){
+ if(myStores.length==0){
 
-    var id = myStores[i];
+  myList.innerHTML=
+  '<div class="card">登録されているお店はありません。</div>';
 
-    for(var j=0;j<stores.length;j++){
+  return;
+ }
 
-      if(stores[j].id == id){
+ for(var i=0;i<myStores.length;i++){
 
-        myList.innerHTML +=
-        '<div class="card">' +
-        '<h2>🏪 ' + stores[j].name + '</h2>' +
-        '<div class="area">📍 ' + stores[j].area + '</div>' +
-        '<button class="action view" onclick="openFlyer(\'' + stores[j].url + '\')">📰 チラシを見る</button>' +
-        '<button class="action remove" onclick="removeStore(\'' + id + '\')">🗑️ マイ店舗から削除</button>' +
-        '</div>';
+  for(var j=0;j<stores.length;j++){
 
-      }
-    }
+   if(myStores[i]==stores[j].id){
+
+    myList.innerHTML +=
+
+    '<div class="card">'+
+
+    '<h2>🏪 '+stores[j].name+'</h2>'+
+
+    '<div class="area">📍 '+stores[j].area+'</div>'+
+
+    '<div class="new">🆕 チラシ</div>'+
+
+    '<button class="action view" '+
+    'onclick="openFlyer(\''+stores[j].url+'\')">'+
+    '📰 この店舗のチラシを見る'+
+    '</button>'+
+
+    '<button class="action remove" '+
+    'onclick="removeStore(\''+stores[j].id+'\')">'+
+    '🗑️ マイ店舗から削除'+
+    '</button>'+
+
+    '</div>';
+   }
   }
+ }
 }
+
 
 function showStores(){
 
-  var word = searchBox.value.toLowerCase();
+ var word=searchBox.value.toLowerCase();
 
-  storeList.innerHTML = "";
+ storeList.innerHTML="";
 
-  for(var i=0;i<stores.length;i++){
+ for(var i=0;i<stores.length;i++){
 
-    if(word != "" &&
-       stores[i].name.toLowerCase().indexOf(word) == -1){
-      continue;
-    }
-
-    var registered = myStores.indexOf(stores[i].id) != -1;
-
-    storeList.innerHTML +=
-    '<div class="card">' +
-    '<h2>🏪 ' + stores[i].name + '</h2>' +
-    '<div class="area">📍 ' + stores[i].area + '</div>' +
-
-    (registered
-      ? '<p>✅ 登録済み</p>'
-      : '<button class="action add" onclick="addStore(\'' + stores[i].id + '\')">＋ マイ店舗に追加</button>'
-    ) +
-
-    '</div>';
+  if(
+   word!="" &&
+   stores[i].name.toLowerCase().indexOf(word)==-1
+  ){
+   continue;
   }
+
+  var registered=
+   myStores.indexOf(stores[i].id)!=-1;
+
+  storeList.innerHTML +=
+
+  '<div class="card">'+
+
+  '<h2>🏪 '+stores[i].name+'</h2>'+
+
+  '<div class="area">📍 '+stores[i].area+'</div>'+
+
+  (
+   registered
+   ?
+   '<p>✅ マイ店舗に登録済み</p>'
+   :
+   '<button class="action add" '+
+   'onclick="addStore(\''+stores[i].id+'\')">'+
+   '＋ マイ店舗に追加'+
+   '</button>'
+  )+
+
+  '</div>';
+ }
 }
+
 
 function addStore(id){
 
-  if(myStores.indexOf(id) == -1){
-    myStores.push(id);
-  }
-
-  myPage.style.display = "block";
-  addPage.style.display = "none";
-
-  myButton.className = "active";
-  addButton.className = "";
-
-  showMyStores();
-}
-
-function removeStore(id){
-
-  var newList = [];
-
-  for(var i=0;i<myStores.length;i++){
-    if(myStores[i] != id){
-      newList.push(myStores[i]);
-    }
-  }
-
-  myStores = newList;
-
-  showMyStores();
-}
-
-function openFlyer(url){
-  window.open(url,"_blank");
-}
-
-showMyStores();
-
-</script>
-
-</body>
-</html>
+ if(myStores.indexOf(id)==-1){
+ 
