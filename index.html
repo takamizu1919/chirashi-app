@@ -9,7 +9,7 @@
 body{
  margin:0;
  font-family:Arial,"Noto Sans JP",sans-serif;
- background:#f4f6f8;
+ background:#f3f5f7;
  color:#222;
 }
 header{
@@ -18,13 +18,9 @@ header{
  text-align:center;
  padding:18px;
 }
-header h1{margin:0;font-size:25px}
+header h1{margin:0}
 header p{margin:6px 0}
-
-nav{
- display:flex;
- background:white;
-}
+nav{display:flex;background:white}
 nav button{
  width:50%;
  padding:17px 5px;
@@ -37,46 +33,16 @@ nav button.active{
  color:#1976d2;
  border-bottom:4px solid #1976d2;
 }
-
-main{
- max-width:600px;
- margin:auto;
- padding:15px;
-}
-
+main{max-width:600px;margin:auto;padding:15px}
 .card{
  background:white;
  border-radius:14px;
  padding:16px;
- margin-bottom:15px;
+ margin-bottom:14px;
  box-shadow:0 2px 7px #bbb;
 }
-
-.card h2{
- margin:0 0 8px;
- font-size:19px;
-}
-
-.area{
- color:#777;
- margin-bottom:12px;
-}
-
-.flyer{
- background:#1976d2;
- color:white;
-}
-
-.add{
- background:#43a047;
- color:white;
-}
-
-.remove{
- background:#eee;
- color:#555;
-}
-
+.card h2{margin:0 0 8px;font-size:19px}
+.area{color:#777;margin-bottom:12px}
 .action{
  width:100%;
  padding:14px;
@@ -86,6 +52,9 @@ main{
  font-size:16px;
  font-weight:bold;
 }
+.flyer{background:#1976d2;color:white}
+.add{background:#43a047;color:white}
+.remove{background:#eee;color:#555}
 </style>
 </head>
 
@@ -120,31 +89,31 @@ main{
 var stores=[
 
 {
- id:"yaoko",
- name:"ヤオコー羽生店",
- area:"羽生市南4-255",
- url:"https://www.yaoko-net.com/store/store01/058.html"
+id:"yaoko",
+name:"ヤオコー羽生店",
+area:"羽生市南4-255",
+url:"https://www.yaoko-net.com/store/store01/058.html"
 },
 
 {
- id:"beisia",
- name:"ベイシア羽生店",
- area:"羽生市中岩瀬700",
- url:"https://chirashi.line.me/branches/5da85a26fd8da8d8d9475899"
+id:"beisia",
+name:"ベイシア羽生店",
+area:"羽生市中岩瀬700",
+url:"https://chirashi.line.me/branches/5da85a26fd8da8d8d9475899"
 },
 
 {
- id:"cainz",
- name:"カインズ羽生店",
- area:"羽生市大字小松388",
- url:"https://map.cainz.com/detail/860/"
+id:"cainz",
+name:"カインズ羽生店",
+area:"羽生市大字小松388",
+url:"https://map.cainz.com/detail/860/"
 },
 
 {
- id:"belc",
- name:"ベルク羽生西店",
- area:"羽生市西2-18-19",
- url:"https://www.belc.jp/shop/0029"
+id:"belc",
+name:"ベルク羽生西店",
+area:"羽生市西2-18-19",
+url:"https://www.belc.jp/shop/0029"
 }
 
 ];
@@ -157,33 +126,24 @@ var myPage=document.getElementById("myPage");
 var addPage=document.getElementById("addPage");
 
 myBtn.onclick=function(){
-
  myPage.style.display="block";
  addPage.style.display="none";
-
  myBtn.className="active";
  addBtn.className="";
-
  showMy();
-
 };
 
 addBtn.onclick=function(){
-
  myPage.style.display="none";
  addPage.style.display="block";
-
  myBtn.className="";
  addBtn.className="active";
-
  showAll();
-
 };
 
 function showMy(){
 
  var box=document.getElementById("myList");
-
  box.innerHTML="";
 
  for(var i=0;i<myStores.length;i++){
@@ -197,13 +157,14 @@ function showMy(){
    '<h2>🏪 '+shop.name+'</h2>'+
    '<div class="area">📍 '+shop.area+'</div>'+
    '<button class="action flyer" onclick="openFlyer(\''+
-   shop.url+
-   '\')">📰 '+shop.name+'のチラシを見る</button>'+
+   shop.url+'\')">'+
+   '📰 '+shop.name+'のチラシを見る'+
+   '</button>'+
    '<button class="action remove" onclick="removeShop(\''+
-   shop.id+
-   '\')">🗑️ マイ店舗から削除</button>'+
+   shop.id+'\')">'+
+   '🗑️ マイ店舗から削除'+
+   '</button>'+
    '</div>';
-
   }
  }
 }
@@ -211,13 +172,11 @@ function showMy(){
 function showAll(){
 
  var box=document.getElementById("storeList");
-
  box.innerHTML="";
 
  for(var i=0;i<stores.length;i++){
 
   var shop=stores[i];
-
   var registered=myStores.indexOf(shop.id)>=0;
 
   box.innerHTML+=
@@ -226,26 +185,18 @@ function showAll(){
   '<div class="area">📍 '+shop.area+'</div>'+
   (
    registered
-   ?
-   '<p>✅ 登録済み</p>'
-   :
-   '<button class="action add" onclick="addShop(\''+
-   shop.id+
-   '\')">＋ マイ店舗に追加</button>'
+   ? '<p>✅ 登録済み</p>'
+   : '<button class="action add" onclick="addShop(\''+
+     shop.id+'\')">＋ マイ店舗に追加</button>'
   )+
   '</div>';
-
  }
 }
 
 function findShop(id){
 
  for(var i=0;i<stores.length;i++){
-
-  if(stores[i].id==id){
-   return stores[i];
-  }
-
+  if(stores[i].id==id)return stores[i];
  }
 
  return null;
@@ -257,14 +208,11 @@ function addShop(id){
   myStores.push(id);
  }
 
- showMy();
-
  myPage.style.display="block";
  addPage.style.display="none";
-
  myBtn.className="active";
  addBtn.className="";
-
+ showMy();
 }
 
 function removeShop(id){
@@ -272,23 +220,15 @@ function removeShop(id){
  var result=[];
 
  for(var i=0;i<myStores.length;i++){
-
-  if(myStores[i]!=id){
-   result.push(myStores[i]);
-  }
-
+  if(myStores[i]!=id)result.push(myStores[i]);
  }
 
  myStores=result;
-
  showMy();
-
 }
 
 function openFlyer(url){
-
  window.open(url,"_blank");
-
 }
 
 showMy();
